@@ -18,7 +18,7 @@ const Favorites = ({ favorites, toggleFavorite }) => {
       <h1>Your Favorite Art Pieces</h1>
       <ul style={{ listStyle: "none" }}>
         {favoritePieces.length === 0 ? (
-          <p>You don't have any favorite art pieces yet.</p>
+          <p>You don not have any favorite art pieces yet.</p>
         ) : (
           favoritePieces.map((piece) => (
             <li key={piece.slug}>

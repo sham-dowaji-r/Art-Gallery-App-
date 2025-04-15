@@ -3,6 +3,7 @@ import useArtPieces from "@/hooks/useArtPieces";
 import FavoriteButton from "../FavoriteButton";
 import Link from "next/link";
 import getRandomArtPiece from "@/utils/getRandomArtPiece"; // إذا عندك فانكشن هيك
+import Image from "next/image";
 
 const SpotLight = ({ favorites, toggleFavorite }) => {
   const { data, error, isLoading } = useArtPieces();
@@ -36,10 +37,11 @@ const SpotLight = ({ favorites, toggleFavorite }) => {
       <h2 style={{ marginBottom: "1rem" }}>Your SpotLight Pieces ✨</h2>
       <div style={{ position: "relative" }}>
         <Link href={`/art/${randomPiece.slug}`}>
-          <img
+          <Image
             src={randomPiece.imageSource}
             alt={randomPiece.name}
-            style={{ width: "100%", maxWidth: 300, height: "auto" }}
+            fill
+            style={{ objectFit: "cover", borderRadius: "12px" }}
           />
         </Link>
         <FavoriteButton

@@ -1,6 +1,7 @@
 import React from "react";
 import FavoriteButton from "../FavoriteButton";
 import Link from "next/link";
+import Image from "next/image";
 
 const ArtPiecesCard = ({
   imageUrl,
@@ -27,14 +28,12 @@ const ArtPiecesCard = ({
       {/* الصورة + زر القلب */}
       <div style={{ position: "relative" }}>
         <Link href={`/art/${slug}`}>
-          <img
+          <Image
             src={imageUrl}
             alt={title}
+            fill
             style={{
-              width: "100%",
-              height: "200px",
               objectFit: "cover",
-              display: "block",
             }}
           />
         </Link>

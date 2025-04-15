@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import FavoriteButton from "../FavoriteButton";
+import Image from "next/image";
+
 const ArtPieceDetails = ({ piece, isFavorite, toggleFavorite }) => {
   return (
     <div
@@ -14,14 +16,16 @@ const ArtPieceDetails = ({ piece, isFavorite, toggleFavorite }) => {
       }}
     >
       <div style={{ position: "relative", width: "100%", maxWidth: 400 }}>
-        <img
+        <Image
           src={piece.imageSource}
           alt={piece.name}
+          width={400}
+          height={300}
           style={{
             width: "100%",
-            maxWidth: 400,
+            height: "auto",
             borderRadius: 12,
-            marginBottom: "1rem",
+            objectFit: "cover",
           }}
         />
         <FavoriteButton
