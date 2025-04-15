@@ -30,6 +30,12 @@ const Navigation = () => {
       >
         Art Pieces🎨
       </Link>
+      <Link
+        href="/favorites"
+        style={{ color: "white", textDecoration: "none", fontWeight: "bold" }}
+      >
+        Favorites ❤️
+      </Link>
     </nav>
   );
 };

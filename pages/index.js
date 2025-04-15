@@ -1,12 +1,11 @@
 import React from "react";
-import Link from "next/link";
 
 import SpotLight from "@/components/SpotLight";
 
-export default function HomePage() {
+export default function HomePage({ favorites, toggleFavorite }) {
   return (
     <main style={{ padding: "2rem" }}>
-      <SpotLight />
+      <SpotLight favorites={favorites} toggleFavorite={toggleFavorite} />
     </main>
   );
 }

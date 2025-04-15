@@ -1,10 +1,9 @@
 import React from "react";
 import ArtPiecesCard from "../ArtPiecesCard";
 import useArtPieces from "@/hooks/useArtPieces";
+import FavoriteButton from "../FavoriteButton";
 
-//const fetcher = (url) => fetch(url).then((res) => res.json());
-
-const ArtPiecesList = () => {
+const ArtPiecesList = ({ favorites, toggleFavorite }) => {
   const { data, error, isLoading } = useArtPieces();
   if (isLoading) return <p>Loading The Pieces...</p>;
   if (error) return <p>Faild To Load The Data</p>;
@@ -27,6 +26,8 @@ const ArtPiecesList = () => {
               title={piece.name}
               artist={piece.artist}
               slug={piece.slug}
+              isFavorite={favorites.includes(piece.slug)}
+              toggleFavorite={toggleFavorite}
             />
           </li>
         ))}
