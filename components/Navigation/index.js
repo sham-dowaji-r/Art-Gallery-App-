@@ -7,10 +7,11 @@ const Navigation = () => {
       style={{
         position: "fixed",
         bottom: 0,
-        width: "100%",
+        left: 0,
+        right: 0, // يغطي كامل العرض
         backgroundColor: "#222",
         color: "white",
-        padding: "1rem",
+        padding: "1rem 0",
         display: "flex",
         justifyContent: "space-around",
         zIndex: 1000,
