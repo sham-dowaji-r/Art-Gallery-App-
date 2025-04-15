@@ -40,7 +40,9 @@ const SpotLight = ({ favorites, toggleFavorite }) => {
           <Image
             src={randomPiece.imageSource}
             alt={randomPiece.name}
-            fill
+            width={300}
+            height={200}
+            priority
             style={{ objectFit: "cover", borderRadius: "12px" }}
           />
         </Link>

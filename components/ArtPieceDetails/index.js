@@ -21,6 +21,7 @@ const ArtPieceDetails = ({ piece, isFavorite, toggleFavorite }) => {
           alt={piece.name}
           width={400}
           height={300}
+          priority
           style={{
             width: "100%",
             height: "auto",

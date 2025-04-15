@@ -13,10 +13,9 @@ const nextConfig = {
 
     return config;
   },
-};
-
-module.exports = {
   images: {
-    domains: ["https://example-apis.vercel.app/api/art"], // عدّل حسب API تبعك
+    domains: ["example-apis.vercel.app"], // ✅ تم التصحيح
   },
 };
+
+module.exports = nextConfig;

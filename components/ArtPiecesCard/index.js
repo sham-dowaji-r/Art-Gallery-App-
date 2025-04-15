@@ -31,7 +31,8 @@ const ArtPiecesCard = ({
           <Image
             src={imageUrl}
             alt={title}
-            fill
+            width={300}
+            height={200}
             style={{
               objectFit: "cover",
             }}
