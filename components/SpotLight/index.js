@@ -12,21 +12,28 @@ const SpotLight = () => {
   if (!randomPiece) return <p>No Art Pieces Available.</p>;
 
   return (
-    <div>
-      <h2 style={{ textAlign: "center" }}>Your SpotLight Pieces ✨</h2>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "70vh", // حتى يطلع كلشي بالنص تقريباً
+        textAlign: "center",
+      }}
+    >
+      <h2 style={{ marginBottom: "1rem" }}>Your SpotLight Pieces ✨</h2>
       <img
         src={randomPiece.imageSource}
         alt={randomPiece.name}
         style={{
           width: "100%",
-          maxWidth: "50%",
-          borderRadius: 10,
-          alignItems: "center",
+          maxWidth: 400,
+          borderRadius: 12,
+          boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
         }}
       />
-      <h3 style={{ marginTop: "1rem", textAlign: "center" }}>
-        By {randomPiece.artist}
-      </h3>
+      <p style={{ marginTop: "1rem" }}>By {randomPiece.artist}</p>
     </div>
   );
 };
