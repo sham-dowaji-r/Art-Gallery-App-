@@ -7,8 +7,10 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body {
+  html , body {
     margin: 0;
     font-family: system-ui;
+    height: 100%;
+    padding: 0
   }
 `;
