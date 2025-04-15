@@ -1,16 +1,25 @@
-import React from "react";
-import getRandomArtPiece from "@/utils/getRandomArtPiece";
+import React, { useEffect, useState } from "react";
 import useArtPieces from "@/hooks/useArtPieces";
+import FavoriteButton from "../FavoriteButton";
 import Link from "next/link";
+import getRandomArtPiece from "@/utils/getRandomArtPiece"; // إذا عندك فانكشن هيك
 
-const SpotLight = ({ slug }) => {
+const SpotLight = ({ favorites, toggleFavorite }) => {
   const { data, error, isLoading } = useArtPieces();
+  const [randomPiece, setRandomPiece] = useState(null);
+
+  useEffect(() => {
+    if (data && data.length > 0 && !randomPiece) {
+      const random = getRandomArtPiece(data);
+      setRandomPiece(random);
+    }
+  }, [data, randomPiece]);
+
   if (isLoading) return <p>Loading The Pieces...</p>;
   if (error) return <p>Faild To Load The Data</p>;
-
-  const randomPiece = getRandomArtPiece(data);
-
   if (!randomPiece) return <p>No Art Pieces Available.</p>;
+
+  const isFavorite = favorites.includes(randomPiece.slug);
 
   return (
     <div
@@ -21,25 +30,25 @@ const SpotLight = ({ slug }) => {
         justifyContent: "center",
         minHeight: "70vh", // حتى يطلع كلشي بالنص تقريباً
         textAlign: "center",
+        position: "relative",
       }}
     >
       <h2 style={{ marginBottom: "1rem" }}>Your SpotLight Pieces ✨</h2>
-      <Link
-        href={`/art/${randomPiece.slug}`}
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
-        <img
-          src={randomPiece.imageSource}
-          alt={randomPiece.name}
-          style={{
-            width: "100%",
-            maxWidth: 400,
-            borderRadius: 12,
-            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-          }}
+      <div style={{ position: "relative" }}>
+        <Link href={`/art/${randomPiece.slug}`}>
+          <img
+            src={randomPiece.imageSource}
+            alt={randomPiece.name}
+            style={{ width: "100%", maxWidth: 300, height: "auto" }}
+          />
+        </Link>
+        <FavoriteButton
+          isFavorite={isFavorite}
+          onClick={() => toggleFavorite(randomPiece.slug)}
         />
-      </Link>
-      <p style={{ marginTop: "1rem" }}>By {randomPiece.artist}</p>
+      </div>
+      <h3>{randomPiece.name}</h3>
+      <p>By {randomPiece.artist}</p>
     </div>
   );
 };
