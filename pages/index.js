@@ -1,11 +1,23 @@
 import React from "react";
-import ArtPiecesList from "@/components/ArtPiecesList";
+import Link from "next/link";
+
+import SpotLight from "@/components/SpotLight";
 
 export default function HomePage() {
   return (
     <main style={{ padding: "2rem" }}>
-      <h1>Gallery 🎨</h1>
-      <ArtPiecesList />
+      <SpotLight />
+      <Link href="/gallery">
+        <button
+          style={{
+            marginTop: "2rem",
+            padding: "0.5rem 1rem",
+            fontSize: "1rem",
+          }}
+        >
+          All Art Pieces🎨
+        </button>
+      </Link>
     </main>
   );
 }

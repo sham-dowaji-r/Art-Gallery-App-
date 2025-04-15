@@ -1,19 +1,16 @@
 import React from "react";
 import ArtPiecesCard from "../ArtPiecesCard";
-import useSWR from "swr";
+import useArtPieces from "@/hooks/useArtPieces";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+//const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const ArtPiecesList = () => {
-  const { data, error, isLoading } = useSWR(
-    "https://example-apis.vercel.app/api/art",
-    fetcher
-  );
+  const { data, error, isLoading } = useArtPieces();
   if (isLoading) return <p>Loading The Pieces...</p>;
   if (error) return <p>Faild To Load The Data</p>;
   return (
     <div>
-      <ul>
+      <ul style={{ listStyle: "none" }}>
         <li>
           {data.map((piece) => (
             <ArtPiecesCard
