@@ -20,7 +20,8 @@ const SpotLight = ({ favorites, toggleFavorite }) => {
   if (error) return <p>Faild To Load The Data</p>;
   if (!randomPiece) return <p>No Art Pieces Available.</p>;
 
-  const isFavorite = favorites.includes(randomPiece.slug);
+  const isFavorite =
+    Array.isArray(favorites) && favorites.includes(randomPiece.slug);
 
   return (
     <div

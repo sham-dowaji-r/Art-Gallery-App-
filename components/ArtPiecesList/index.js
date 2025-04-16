@@ -1,7 +1,6 @@
 import React from "react";
 import ArtPiecesCard from "../ArtPiecesCard";
 import useArtPieces from "@/hooks/useArtPieces";
-import FavoriteButton from "../FavoriteButton";
 
 const ArtPiecesList = ({ favorites, toggleFavorite }) => {
   const { data, error, isLoading } = useArtPieces();
@@ -26,7 +25,9 @@ const ArtPiecesList = ({ favorites, toggleFavorite }) => {
               title={piece.name}
               artist={piece.artist}
               slug={piece.slug}
-              isFavorite={favorites.includes(piece.slug)}
+              isFavorite={
+                Array.isArray(favorites) && favorites.includes(piece.slug)
+              }
               toggleFavorite={toggleFavorite}
             />
           </li>
