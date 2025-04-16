@@ -13,11 +13,24 @@ const useStore = create(
           : [...favorites, slug];
         set({ favorites: updated });
       },
-      saveComment: (slug, text) => {
+      /*saveComment: (slug, text) => {
         set((state) => ({
           comments: {
             ...state.comments,
             [slug]: text,
+          },
+        }));
+      },*/
+      saveComment: (slug, text) => {
+        const newComment = {
+          text,
+          date: new Date().toISOString(),
+        };
+
+        set((state) => ({
+          comments: {
+            ...state.comments,
+            [slug]: [...(state.comments[slug] || []), newComment],
           },
         }));
       },

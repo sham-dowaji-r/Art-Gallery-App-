@@ -3,13 +3,17 @@ import Link from "next/link";
 import Image from "next/image";
 import FavoriteButton from "../FavoriteButton";
 import useStore from "../store";
+import CommentForm from "../CommentForm";
+import CommentList from "../CommentList";
 
 const ArtPieceDetails = ({ piece }) => {
   // ✅ استخدام Zustand
   const favorites = useStore((state) => state.favorites);
   const toggleFavorite = useStore((state) => state.toggleFavorite);
   const comments = useStore((state) => state.comments);
-  const saveComment = useStore((state) => state.saveComment);
+  const pieceComments = Array.isArray(comments?.[piece.slug])
+    ? comments[piece.slug]
+    : [];
 
   const isFavorite = favorites.includes(piece.slug);
 
@@ -19,12 +23,11 @@ const ArtPieceDetails = ({ piece }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "2rem 1rem 6rem", // Bottom padding to avoid navbar overlap
+        padding: "2rem 1rem 6rem",
         minHeight: "100vh",
         boxSizing: "border-box",
       }}
     >
-      {/* ✅ الصورة وزر القلب */}
       <div style={{ position: "relative", width: "100%", maxWidth: 400 }}>
         <Image
           src={piece.imageSource}
@@ -45,7 +48,6 @@ const ArtPieceDetails = ({ piece }) => {
         />
       </div>
 
-      {/* ✅ المعلومات والتفاصيل */}
       <div
         style={{
           width: "100%",
@@ -62,7 +64,6 @@ const ArtPieceDetails = ({ piece }) => {
         <p>{piece.year}</p>
         <p>{piece.genre}</p>
 
-        {/* ✅ عرض الألوان */}
         {Array.isArray(piece.colors) && piece.colors.length > 0 ? (
           <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
             {piece.colors.map((color) => (
@@ -83,27 +84,10 @@ const ArtPieceDetails = ({ piece }) => {
           <p>No color data available</p>
         )}
 
-        {/* ✅ مربع التعليق */}
-        <div style={{ marginTop: "1.5rem" }}>
-          <label htmlFor="comment">Your Comment:</label>
-          <textarea
-            id="comment"
-            value={comments?.[piece.slug] || ""}
-            onChange={(e) => saveComment(piece.slug, e.target.value)}
-            placeholder="Write your thoughts here..."
-            style={{
-              width: "100%",
-              minHeight: "80px",
-              marginTop: "0.5rem",
-              padding: "0.5rem",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontFamily: "inherit",
-            }}
-          />
-        </div>
+        <h3 style={{ marginTop: "2rem" }}>Comments</h3>
+        <CommentList comments={pieceComments} />
+        <CommentForm slug={piece.slug} />
 
-        {/* ✅ زر الرجوع للغاليري */}
         <Link href="/gallery">
           <button
             style={{
