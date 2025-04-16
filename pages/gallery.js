@@ -1,14 +1,10 @@
 import React from "react";
 import ArtPiecesList from "@/components/ArtPiecesList";
 
-export default function Gallery({ data, favorites, toggleFavorite }) {
+export default function Gallery() {
   return (
     <main style={{ padding: "2rem" }}>
-      <ArtPiecesList
-        data={data}
-        favorites={favorites}
-        toggleFavorite={toggleFavorite}
-      />
+      <ArtPiecesList />
     </main>
   );
 }

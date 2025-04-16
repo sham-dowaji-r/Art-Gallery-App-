@@ -1,68 +1,65 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import ArtPiecesCard from ".";
 import "@testing-library/jest-dom";
+import useStore from "../store"; // ✅ استيراد المتجر
 
-const mockToggleFavorite = jest.fn();
+// ✅ ضبط Zustand قبل كل اختبار
+beforeEach(() => {
+  useStore.setState({
+    favorites: ["sunset-in-venice"],
+    toggleFavorite: jest.fn(),
+  });
+});
 
-// إنشاء بيانات وهمية لاختبار الكمبوننت
+// ✅ بعد كل اختبار: إعادة ضبط Zustand
+afterEach(() => {
+  useStore.setState({ favorites: [], toggleFavorite: () => {} });
+});
+
+// بيانات الاختبار
 const mockProps = {
-  imageUrl: "https://example.com/image.jpg", // رابط وهمي للصورة
-  title: "Sunset in Venice", // عنوان العمل الفني
-  artist: "Claude Monet", // اسم الفنان
-  slug: "sunset-in-venice", // معرف القطعة
-  isFavorite: true, // تحديد إنها مفضلة
-  toggleFavorite: mockToggleFavorite, // نمرر الدالة المزيفة
+  imageUrl: "https://example.com/image.jpg",
+  title: "Sunset in Venice",
+  artist: "Claude Monet",
+  slug: "sunset-in-venice",
 };
 
-describe("ArtPiecesCard", () => {
-  // اختبار عرض البيانات الأساسية
+describe("ArtPiecesCard (with Zustand)", () => {
   test("renders image, title and artist", () => {
-    render(<ArtPiecesCard {...mockProps} />); // رسم الكمبوننت ببيانات وهمية
-
-    // ✅ التحقق من وجود الصورة alt=title
+    render(<ArtPiecesCard {...mockProps} />);
     const image = screen.getByAltText(mockProps.title);
-    expect(image).toBeInTheDocument(); // نتأكد إنها ظاهرة
-    expect(image).toHaveAttribute("src", expect.stringContaining("image.jpg")); // وبتحوي رابط صحيح
-
-    // ✅ التحقق من وجود العنوان واسم الفنان
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute("src", expect.stringContaining("image.jpg"));
     expect(screen.getByText(mockProps.title)).toBeInTheDocument();
     expect(screen.getByText(`By ${mockProps.artist}`)).toBeInTheDocument();
   });
 
-  // اختبار الضغط على زر القلب
   test("calls toggleFavorite when heart is clicked", () => {
-    render(<ArtPiecesCard {...mockProps} />); // نرسم الكمبوننت
+    const mockToggle = jest.fn();
+    useStore.setState({ toggleFavorite: mockToggle });
 
-    // ✅ نحصل على زر القلب (لازم يكون فيه aria-label="Toggle Favorite")
+    render(<ArtPiecesCard {...mockProps} />);
+
     const heartButton = screen.getByRole("button", {
       name: /toggle favorite/i,
     });
 
-    // ✅ نحاكي ضغطة على زر القلب
     fireEvent.click(heartButton);
-
-    // ✅ نتأكد إن الدالة نادت مرة وحدة
-    expect(mockToggleFavorite).toHaveBeenCalledTimes(1);
-
-    // ✅ ونعرف إنها نادت مع الـ slug تبع القطعة
-    expect(mockToggleFavorite).toHaveBeenCalledWith(mockProps.slug);
+    expect(mockToggle).toHaveBeenCalledTimes(1);
+    expect(mockToggle).toHaveBeenCalledWith(mockProps.slug);
   });
 
-  // اختبار الشكل لما القطعة مفضلة
   test("applies crimson border if favorite", () => {
-    const { container } = render(<ArtPiecesCard {...mockProps} />); // نرسم الكرت
+    useStore.setState({ favorites: [mockProps.slug] });
 
-    // ✅ نتحقق من وجود إطار أحمر
+    const { container } = render(<ArtPiecesCard {...mockProps} />);
     expect(container.firstChild).toHaveStyle("border: 3px solid crimson");
   });
 
-  // اختبار الشكل لما القطعة مو مفضلة
   test("applies default border if not favorite", () => {
-    const { container } = render(
-      <ArtPiecesCard {...mockProps} isFavorite={false} /> // نجرب بحالة غير مفضلة
-    );
+    useStore.setState({ favorites: [] });
 
-    // ✅ نتحقق من وجود الإطار الرمادي الافتراضي
+    const { container } = render(<ArtPiecesCard {...mockProps} />);
     expect(container.firstChild).toHaveStyle("border: 1px solid #ddd");
   });
 });

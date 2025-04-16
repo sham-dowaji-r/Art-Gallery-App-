@@ -2,18 +2,20 @@ import React from "react";
 import ArtPiecesCard from "../ArtPiecesCard";
 import useArtPieces from "@/hooks/useArtPieces";
 
-const ArtPiecesList = ({ favorites, toggleFavorite }) => {
+const ArtPiecesList = () => {
   const { data, error, isLoading } = useArtPieces();
+
   if (isLoading) return <p>Loading The Pieces...</p>;
-  if (error) return <p>Faild To Load The Data</p>;
+  if (error) return <p>Failed To Load The Data</p>;
+
   return (
     <div
       style={{
         display: "flex",
-        justifyContent: "center", // center horizontally
-        alignItems: "center", // center vertically
+        justifyContent: "center",
+        alignItems: "center",
         flexDirection: "column",
-        minHeight: "100vh", // take full height of screen
+        minHeight: "100vh",
       }}
     >
       <h1>Gallery 🎨</h1>
@@ -25,10 +27,6 @@ const ArtPiecesList = ({ favorites, toggleFavorite }) => {
               title={piece.name}
               artist={piece.artist}
               slug={piece.slug}
-              isFavorite={
-                Array.isArray(favorites) && favorites.includes(piece.slug)
-              }
-              toggleFavorite={toggleFavorite}
             />
           </li>
         ))}
@@ -36,4 +34,5 @@ const ArtPiecesList = ({ favorites, toggleFavorite }) => {
     </div>
   );
 };
+
 export default ArtPiecesList;

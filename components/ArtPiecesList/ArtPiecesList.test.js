@@ -42,7 +42,7 @@ describe("ArtPiecesList", () => {
 
     render(<ArtPiecesList favorites={[]} toggleFavorite={() => {}} />);
 
-    expect(screen.getByText(/faild to load the data/i)).toBeInTheDocument();
+    expect(screen.getByText(/failed to load the data/i)).toBeInTheDocument();
   });
 
   // 🧪 اختبار الحالة الطبيعية عند وجود بيانات

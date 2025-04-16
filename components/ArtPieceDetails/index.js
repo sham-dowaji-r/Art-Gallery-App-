@@ -1,20 +1,30 @@
-import Link from "next/link";
 import React from "react";
-import FavoriteButton from "../FavoriteButton";
+import Link from "next/link";
 import Image from "next/image";
+import FavoriteButton from "../FavoriteButton";
+import useStore from "../store";
 
-const ArtPieceDetails = ({ piece, isFavorite, toggleFavorite }) => {
+const ArtPieceDetails = ({ piece }) => {
+  // ✅ استخدام Zustand
+  const favorites = useStore((state) => state.favorites);
+  const toggleFavorite = useStore((state) => state.toggleFavorite);
+  const comments = useStore((state) => state.comments);
+  const saveComment = useStore((state) => state.saveComment);
+
+  const isFavorite = favorites.includes(piece.slug);
+
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "2rem 1rem 6rem", // آخر رقم هو bottom padding حتى ما تتغطى بالمينيو
+        padding: "2rem 1rem 6rem", // Bottom padding to avoid navbar overlap
         minHeight: "100vh",
         boxSizing: "border-box",
       }}
     >
+      {/* ✅ الصورة وزر القلب */}
       <div style={{ position: "relative", width: "100%", maxWidth: 400 }}>
         <Image
           src={piece.imageSource}
@@ -34,6 +44,8 @@ const ArtPieceDetails = ({ piece, isFavorite, toggleFavorite }) => {
           onClick={() => toggleFavorite(piece.slug)}
         />
       </div>
+
+      {/* ✅ المعلومات والتفاصيل */}
       <div
         style={{
           width: "100%",
@@ -49,6 +61,8 @@ const ArtPieceDetails = ({ piece, isFavorite, toggleFavorite }) => {
         <p>{piece.artist}</p>
         <p>{piece.year}</p>
         <p>{piece.genre}</p>
+
+        {/* ✅ عرض الألوان */}
         {Array.isArray(piece.colors) && piece.colors.length > 0 ? (
           <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
             {piece.colors.map((color) => (
@@ -62,12 +76,34 @@ const ArtPieceDetails = ({ piece, isFavorite, toggleFavorite }) => {
                   backgroundColor: color,
                   border: "1px solid #ccc",
                 }}
-              ></div>
+              />
             ))}
           </div>
         ) : (
           <p>No color data available</p>
         )}
+
+        {/* ✅ مربع التعليق */}
+        <div style={{ marginTop: "1.5rem" }}>
+          <label htmlFor="comment">Your Comment:</label>
+          <textarea
+            id="comment"
+            value={comments?.[piece.slug] || ""}
+            onChange={(e) => saveComment(piece.slug, e.target.value)}
+            placeholder="Write your thoughts here..."
+            style={{
+              width: "100%",
+              minHeight: "80px",
+              marginTop: "0.5rem",
+              padding: "0.5rem",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              fontFamily: "inherit",
+            }}
+          />
+        </div>
+
+        {/* ✅ زر الرجوع للغاليري */}
         <Link href="/gallery">
           <button
             style={{
@@ -87,4 +123,5 @@ const ArtPieceDetails = ({ piece, isFavorite, toggleFavorite }) => {
     </div>
   );
 };
+
 export default ArtPieceDetails;

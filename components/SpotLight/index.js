@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import useArtPieces from "@/hooks/useArtPieces";
 import FavoriteButton from "../FavoriteButton";
 import Link from "next/link";
-import getRandomArtPiece from "@/utils/getRandomArtPiece"; // إذا عندك فانكشن هيك
+import getRandomArtPiece from "@/utils/getRandomArtPiece";
 import Image from "next/image";
+import useStore from "../store"; // ✅ استيراد Zustand
 
-const SpotLight = ({ favorites, toggleFavorite }) => {
+const SpotLight = () => {
   const { data, error, isLoading } = useArtPieces();
   const [randomPiece, setRandomPiece] = useState(null);
 
+  // ✅ من Zustand
+  const favorites = useStore((state) => state.favorites);
+  const toggleFavorite = useStore((state) => state.toggleFavorite);
+
+  // ✅ اختيار قطعة عشوائية عند أول تحميل
   useEffect(() => {
     if (data && data.length > 0 && !randomPiece) {
       const random = getRandomArtPiece(data);
@@ -17,7 +23,7 @@ const SpotLight = ({ favorites, toggleFavorite }) => {
   }, [data, randomPiece]);
 
   if (isLoading) return <p>Loading The Pieces...</p>;
-  if (error) return <p>Faild To Load The Data</p>;
+  if (error) return <p>Failed To Load The Data</p>;
   if (!randomPiece) return <p>No Art Pieces Available.</p>;
 
   const isFavorite =
@@ -30,12 +36,13 @@ const SpotLight = ({ favorites, toggleFavorite }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "70vh", // حتى يطلع كلشي بالنص تقريباً
+        minHeight: "70vh",
         textAlign: "center",
         position: "relative",
       }}
     >
       <h2 style={{ marginBottom: "1rem" }}>Your SpotLight Pieces ✨</h2>
+
       <div style={{ position: "relative" }}>
         <Link href={`/art/${randomPiece.slug}`}>
           <Image
@@ -52,6 +59,7 @@ const SpotLight = ({ favorites, toggleFavorite }) => {
           onClick={() => toggleFavorite(randomPiece.slug)}
         />
       </div>
+
       <h3>{randomPiece.name}</h3>
       <p>By {randomPiece.artist}</p>
     </div>
