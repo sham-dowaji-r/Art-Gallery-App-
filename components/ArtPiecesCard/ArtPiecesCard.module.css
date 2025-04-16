@@ -1,0 +1,36 @@
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.cardDefault {
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cardFavorite {
+  border: 3px solid crimson;
+  box-shadow: 0 0 15px rgba(220, 20, 60, 0.4);
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.details {
+  padding: 1rem;
+}
+
+.title {
+  margin: 0.5rem 0;
+}
+
+.artist {
+  margin: 0.3rem 0;
+  color: #666;
+}

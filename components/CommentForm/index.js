@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useStore from "../store";
+import styles from "./CommentForm.module.css";
 
 const CommentForm = ({ slug }) => {
   const [text, setText] = useState("");
@@ -14,32 +15,14 @@ const CommentForm = ({ slug }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Write your thoughts here..."
-        style={{
-          width: "100%",
-          minHeight: "80px",
-          padding: "0.5rem",
-          borderRadius: "8px",
-          border: "1px solid #ccc",
-          fontFamily: "inherit",
-        }}
+        className={styles.textarea}
       />
-      <button
-        type="submit"
-        style={{
-          marginTop: "0.5rem",
-          backgroundColor: "#222",
-          color: "white",
-          padding: "0.5rem 1rem",
-          border: "none",
-          borderRadius: 6,
-          cursor: "pointer",
-        }}
-      >
+      <button type="submit" className={styles.button}>
         Send
       </button>
     </form>

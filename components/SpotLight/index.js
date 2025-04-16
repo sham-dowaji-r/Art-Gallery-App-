@@ -5,6 +5,7 @@ import Link from "next/link";
 import getRandomArtPiece from "@/utils/getRandomArtPiece";
 import Image from "next/image";
 import useStore from "../store"; // ✅ استيراد Zustand
+import styles from "./SpotLight.module.css";
 
 const SpotLight = () => {
   const { data, error, isLoading } = useArtPieces();
@@ -30,20 +31,10 @@ const SpotLight = () => {
     Array.isArray(favorites) && favorites.includes(randomPiece.slug);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "70vh",
-        textAlign: "center",
-        position: "relative",
-      }}
-    >
-      <h2 style={{ marginBottom: "1rem" }}>Your SpotLight Pieces ✨</h2>
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>Your SpotLight Pieces ✨</h2>
 
-      <div style={{ position: "relative" }}>
+      <div className={styles.imageWrapper}>
         <Link href={`/art/${randomPiece.slug}`}>
           <Image
             src={randomPiece.imageSource}
@@ -51,7 +42,7 @@ const SpotLight = () => {
             width={300}
             height={200}
             priority
-            style={{ objectFit: "cover", borderRadius: "12px" }}
+            className={styles.image}
           />
         </Link>
         <FavoriteButton

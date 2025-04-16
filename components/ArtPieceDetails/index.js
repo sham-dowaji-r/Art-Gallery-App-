@@ -5,6 +5,7 @@ import FavoriteButton from "../FavoriteButton";
 import useStore from "../store";
 import CommentForm from "../CommentForm";
 import CommentList from "../CommentList";
+import styles from "./ArtPieceDetails.module.css";
 
 const ArtPieceDetails = ({ piece }) => {
   // ✅ استخدام Zustand
@@ -18,29 +19,14 @@ const ArtPieceDetails = ({ piece }) => {
   const isFavorite = favorites.includes(piece.slug);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "2rem 1rem 6rem",
-        minHeight: "100vh",
-        boxSizing: "border-box",
-      }}
-    >
-      <div style={{ position: "relative", width: "100%", maxWidth: 400 }}>
+    <div className={styles.wrapper}>
+      <div className={styles.imageWrapper}>
         <Image
           src={piece.imageSource}
           alt={piece.name}
           width={400}
           height={300}
           priority
-          style={{
-            width: "100%",
-            height: "auto",
-            borderRadius: 12,
-            objectFit: "cover",
-          }}
         />
         <FavoriteButton
           isFavorite={isFavorite}
@@ -48,17 +34,7 @@ const ArtPieceDetails = ({ piece }) => {
         />
       </div>
 
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 400,
-          backgroundColor: "#f8f8f8",
-          padding: "1rem",
-          borderRadius: "12px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          textAlign: "left",
-        }}
-      >
+      <div className={styles.detailsBox}>
         <h2>{piece.name}</h2>
         <p>{piece.artist}</p>
         <p>{piece.year}</p>
@@ -70,13 +46,8 @@ const ArtPieceDetails = ({ piece }) => {
               <div
                 key={color}
                 title={color}
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderRadius: "10%",
-                  backgroundColor: color,
-                  border: "1px solid #ccc",
-                }}
+                className={styles.colorSwatch}
+                style={{ backgroundColor: color }}
               />
             ))}
           </div>
@@ -89,19 +60,7 @@ const ArtPieceDetails = ({ piece }) => {
         <CommentForm slug={piece.slug} />
 
         <Link href="/gallery">
-          <button
-            style={{
-              marginTop: "2rem",
-              padding: "0.6rem 1.5rem",
-              backgroundColor: "#222",
-              color: "white",
-              border: "none",
-              borderRadius: 8,
-              cursor: "pointer",
-            }}
-          >
-            Back to Gallery
-          </button>
+          <button className={styles.backButton}>Back to Gallery</button>
         </Link>
       </div>
     </div>

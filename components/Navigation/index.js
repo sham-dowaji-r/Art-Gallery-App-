@@ -1,38 +1,33 @@
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/router";
+import styles from "./Navigation.module.css";
 
 const Navigation = () => {
+  const router = useRouter();
   return (
-    <nav
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0, // يغطي كامل العرض
-        backgroundColor: "#222",
-        color: "white",
-        padding: "1rem 0",
-        display: "flex",
-        justifyContent: "space-around",
-        zIndex: 1000,
-        borderTop: "1px solid #444",
-      }}
-    >
+    <nav className={styles.navbar}>
       <Link
         href="/"
-        style={{ color: "white", textDecoration: "none", fontWeight: "bold" }}
+        className={`${styles.link} ${
+          router.pathname === "/" ? styles.active : ""
+        }`}
       >
         SpotLight
       </Link>
       <Link
         href="/gallery"
-        style={{ color: "white", textDecoration: "none", fontWeight: "bold" }}
+        className={`${styles.link} ${
+          router.pathname === "/gallery" ? styles.active : ""
+        }`}
       >
         Art Pieces🎨
       </Link>
       <Link
         href="/favorites"
-        style={{ color: "white", textDecoration: "none", fontWeight: "bold" }}
+        className={`${styles.link} ${
+          router.pathname === "/favorites" ? styles.active : ""
+        }`}
       >
         Favorites ❤️
       </Link>
