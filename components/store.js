@@ -13,14 +13,7 @@ const useStore = create(
           : [...favorites, slug];
         set({ favorites: updated });
       },
-      /*saveComment: (slug, text) => {
-        set((state) => ({
-          comments: {
-            ...state.comments,
-            [slug]: text,
-          },
-        }));
-      },*/
+
       saveComment: (slug, text) => {
         const newComment = {
           text,

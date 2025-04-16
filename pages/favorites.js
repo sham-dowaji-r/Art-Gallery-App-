@@ -16,9 +16,30 @@ const Favorites = () => {
   );
 
   return (
-    <div>
-      <h1>Your Favorite Art Pieces</h1>
-      <ul style={{ listStyle: "none", padding: 0 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "2rem 1rem",
+        minHeight: "100vh",
+        textAlign: "center",
+      }}
+    >
+      <h1 style={{ fontSize: "1.8rem", marginBottom: "2rem" }}>
+        Your Favorite Art Pieces
+      </h1>
+      <ul
+        style={{
+          listStyle: "none",
+          padding: 0,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "1.5rem",
+          width: "100%",
+        }}
+      >
         {favoritePieces.length === 0 ? (
           <p>You don’t have any favorite art pieces yet.</p>
         ) : (

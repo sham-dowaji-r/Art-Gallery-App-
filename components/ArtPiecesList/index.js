@@ -1,6 +1,7 @@
 import React from "react";
 import ArtPiecesCard from "../ArtPiecesCard";
 import useArtPieces from "@/hooks/useArtPieces";
+import styles from "./ArtPiecesList.module.css";
 
 const ArtPiecesList = () => {
   const { data, error, isLoading } = useArtPieces();
@@ -9,19 +10,11 @@ const ArtPiecesList = () => {
   if (error) return <p>Failed To Load The Data</p>;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        minHeight: "100vh",
-      }}
-    >
+    <div className={styles.container}>
       <h1>Gallery 🎨</h1>
-      <ul style={{ listStyle: "none", padding: 0 }}>
+      <ul className={styles.list}>
         {data.map((piece) => (
-          <li key={piece.slug} style={{ marginBottom: "1rem" }}>
+          <li key={piece.slug} className={styles.listItem}>
             <ArtPiecesCard
               imageUrl={piece.imageSource}
               title={piece.name}
