@@ -6,11 +6,40 @@
   min-height: 70vh;
   text-align: center;
   padding: 2rem 1rem;
+  animation: fadeIn 1s ease-in;
+}
+
+/* ✅ انميشن دخول هادي */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 1rem;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  animation: fadeIn 1.4s ease forwards;
 }
 
 .imageWrapper {
   position: relative;
   margin-bottom: 1rem;
+  animation: fadeIn 1.6s ease forwards;
 }
 
 .image {
@@ -19,10 +48,41 @@
   width: 100%;
   height: auto;
   max-width: 320px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.title {
-  margin-bottom: 1rem;
-  font-size: 1.6rem;
-  font-weight: bold;
+/* ✅ تأثير لما تمرر الماوس عالصورة */
+.image:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.description {
+  font-size: 1rem;
+  color: #666;
+  margin: 1rem 0;
+  max-width: 400px;
+  animation: fadeIn 1.8s ease forwards;
+}
+
+.randomButton {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  animation: fadeIn 2s ease forwards;
+}
+
+/* ✅ تأثير Bounce خفيف لما تضغط الزر */
+.randomButton:active {
+  transform: scale(0.95);
+}
+
+.randomButton:hover {
+  background-color: #444;
 }

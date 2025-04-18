@@ -33,24 +33,31 @@ const Favorites = () => {
         style={{
           listStyle: "none",
           padding: 0,
+          margin: 0,
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "1.5rem",
-          width: "100%",
+          flexWrap: "wrap", // ✅ يخلي البطاقات تلف جنب بعض
+          justifyContent: "center", // ✅ يخليهم بالنص
+          gap: "2rem", // ✅ مسافة بين البطاقات
+          width: "100%", // ✅ يغطي عرض الصفحة
         }}
       >
         {favoritePieces.length === 0 ? (
           <p>You don’t have any favorite art pieces yet.</p>
         ) : (
           favoritePieces.map((piece) => (
-            <li key={piece.slug}>
+            <li
+              key={piece.slug}
+              style={{
+                flex: "0 1 300px", // ✅ كل بطاقة حوالي 300px
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <ArtPiecesCard
                 imageUrl={piece.imageSource}
                 title={piece.name}
                 artist={piece.artist}
                 slug={piece.slug}
-                // ✅ ما في داعي تمرر isFavorite أو toggleFavorite
               />
             </li>
           ))

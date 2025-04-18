@@ -6,6 +6,7 @@ import getRandomArtPiece from "@/utils/getRandomArtPiece";
 import Image from "next/image";
 import useStore from "../store"; // ✅ استيراد Zustand
 import styles from "./SpotLight.module.css";
+import cardStyles from "@/components/ArtPiecesCard/ArtPiecesCard.module.css";
 
 const SpotLight = () => {
   const { data, error, isLoading } = useArtPieces();
@@ -23,6 +24,13 @@ const SpotLight = () => {
     }
   }, [data, randomPiece]);
 
+  const handleNewRandomPiece = () => {
+    if (data && data.length > 0) {
+      const random = getRandomArtPiece(data);
+      setRandomPiece(random);
+    }
+  };
+
   if (isLoading) return <p>Loading The Pieces...</p>;
   if (error) return <p>Failed To Load The Data</p>;
   if (!randomPiece) return <p>No Art Pieces Available.</p>;
@@ -32,9 +40,18 @@ const SpotLight = () => {
 
   return (
     <div className={styles.wrapper}>
+      <p className={styles.welcome}>
+        Welcome to the Art Gallery! 🎨
+        <br />
+        Explore breathtaking, artworks and find your favorites.
+      </p>
       <h2 className={styles.title}>Your SpotLight Pieces ✨</h2>
 
-      <div className={styles.imageWrapper}>
+      <div
+        className={`${cardStyles.card} ${
+          isFavorite ? cardStyles.cardFavorite : cardStyles.cardDefault
+        }`}
+      >
         <Link href={`/art/${randomPiece.slug}`}>
           <Image
             src={randomPiece.imageSource}
@@ -53,6 +70,9 @@ const SpotLight = () => {
 
       <h3>{randomPiece.name}</h3>
       <p>By {randomPiece.artist}</p>
+      <button className={styles.randomButton} onClick={handleNewRandomPiece}>
+        Show Me Another Piece
+      </button>
     </div>
   );
 };
