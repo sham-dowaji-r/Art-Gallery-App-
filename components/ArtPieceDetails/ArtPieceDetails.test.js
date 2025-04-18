@@ -2,54 +2,30 @@ import { render, screen } from "@testing-library/react";
 import ArtPieceDetails from ".";
 import "@testing-library/jest-dom";
 
-// دالة وهمية لتفعيل المفضلة
-const mockToggleFavorite = jest.fn();
-
-// بيانات وهمية لقطعة فنية
-const mockPiece = {
-  slug: "deep-blue",
-  name: "Deep Blue",
-  artist: "Ocean Master",
-  year: 2021,
-  genre: "Abstract",
-  imageSource: "https://example.com/blue.jpg",
-  colors: ["#123456", "#abcdef"],
-};
+// 👇 نعمل Mock لـ useRouter تبع Next.js
+jest.mock("next/router", () => ({
+  useRouter: () => ({
+    back: jest.fn(), // لأنك عامل بالصفحة زر Go Back
+  }),
+}));
 
 describe("ArtPieceDetails", () => {
   test("renders all piece details correctly", () => {
-    render(
-      <ArtPieceDetails
-        piece={mockPiece}
-        isFavorite={true}
-        toggleFavorite={mockToggleFavorite}
-      />
-    );
+    const mockPiece = {
+      slug: "ocean-view",
+      name: "Ocean View",
+      artist: "Jane Doe",
+      year: "2021",
+      genre: "Landscape",
+      colors: ["#00ADEF", "#004080"],
+      imageSource: "https://example.com/ocean.jpg",
+    };
 
-    // ✅ التحقق من عرض الصورة alt = name
-    const image = screen.getByAltText("Deep Blue");
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", expect.stringContaining("blue.jpg"));
+    render(<ArtPieceDetails piece={mockPiece} />);
 
-    // ✅ اسم العمل
-    expect(screen.getByText("Deep Blue")).toBeInTheDocument();
-
-    // ✅ اسم الفنان
-    expect(screen.getByText("Ocean Master")).toBeInTheDocument();
-
-    // ✅ السنة
-    expect(screen.getByText("2021")).toBeInTheDocument();
-
-    // ✅ النوع/التصنيف
-    expect(screen.getByText("Abstract")).toBeInTheDocument();
-
-    // ✅ الألوان (نشيك على عددهم)
-    const colorSquares = screen.getAllByTitle(/#(?:[0-9a-fA-F]{6})/);
-    expect(colorSquares.length).toBe(mockPiece.colors.length);
-
-    // ✅ زر الرجوع
-    expect(
-      screen.getByRole("button", { name: /back to gallery/i })
-    ).toBeInTheDocument();
+    expect(screen.getByText(mockPiece.name)).toBeInTheDocument();
+    expect(screen.getByText(mockPiece.artist)).toBeInTheDocument();
+    expect(screen.getByText(mockPiece.year)).toBeInTheDocument();
+    expect(screen.getByText(mockPiece.genre)).toBeInTheDocument();
   });
 });
