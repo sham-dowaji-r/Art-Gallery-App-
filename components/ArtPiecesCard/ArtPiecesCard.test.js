@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import ArtPiecesCard from ".";
 import "@testing-library/jest-dom";
-import useStore from "../store"; // ✅ استيراد المتجر
+import useStore from "../store";
 
 // ✅ ضبط Zustand قبل كل اختبار
 beforeEach(() => {
@@ -53,13 +53,13 @@ describe("ArtPiecesCard (with Zustand)", () => {
     useStore.setState({ favorites: [mockProps.slug] });
 
     const { container } = render(<ArtPiecesCard {...mockProps} />);
-    expect(container.firstChild).toHaveStyle("border: 3px solid crimson");
+    expect(container.firstChild).toHaveClass("cardFavorite");
   });
 
   test("applies default border if not favorite", () => {
     useStore.setState({ favorites: [] });
 
     const { container } = render(<ArtPiecesCard {...mockProps} />);
-    expect(container.firstChild).toHaveStyle("border: 1px solid #ddd");
+    expect(container.firstChild).toHaveClass("cardDefault");
   });
 });

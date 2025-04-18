@@ -3,7 +3,7 @@ import SpotLight from ".";
 
 import "@testing-library/jest-dom";
 
-// 👇 mock للهوك يلي بيجيب البيانات
+//  mock للهوك يلي بيجيب البيانات
 jest.mock("../../hooks/useArtPieces", () => () => ({
   data: [
     {
