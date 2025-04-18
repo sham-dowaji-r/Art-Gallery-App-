@@ -1,4 +1,5 @@
 import React from "react";
+import { formatDistanceToNow } from "date-fns";
 
 const CommentList = ({ comments }) => {
   if (!Array.isArray(comments) || comments.length === 0) {
@@ -17,8 +18,10 @@ const CommentList = ({ comments }) => {
           }}
         >
           <p style={{ margin: 0 }}>{comment.text}</p>
-          <small style={{ color: "#666" }}>
-            {new Date(comment.date).toLocaleString()}
+          <small style={{ color: "#333" }}>
+            {comment.date
+              ? formatDistanceToNow(new Date(comment.date), { addSuffix: true })
+              : "Unknown time"}
           </small>
         </li>
       ))}

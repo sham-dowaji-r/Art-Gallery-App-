@@ -12,12 +12,13 @@
   margin-top: 2rem;
 
   display: flex;
-  flex-direction: column;
-  align-items: center; /* ✅ يخلي البطاقات بالنص */
-  gap: 1.5rem; /* ✅ مسافة بين البطاقات */
+  flex-wrap: wrap; /* ✅ يخلي البطاقات تلف عالمسطرة */
+  justify-content: center; /* ✅ البطاقات بالنص */
+  gap: 2rem; /* ✅ مسافة بين البطاقات */
 }
 
 .listItem {
-  width: 100%;
-  max-width: 350px; /* ✅ نحدد عرض البطاقة */
+  flex: 0 1 300px; /* ✅ كل بطاقة عرضها 300px تقريبا */
+  display: flex;
+  justify-content: center;
 }

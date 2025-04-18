@@ -7,6 +7,7 @@
   box-sizing: border-box;
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .imageWrapper {
@@ -25,15 +26,32 @@
 .detailsBox {
   width: 100%;
   max-width: 400px;
-  background-color: #f8f8f8;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   text-align: left;
+  transition: all 0.3s ease;
+
+  /* ✨ إضافة الأنميشن */
+  animation: fadeInUp 0.6s ease-out forwards;
 }
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .detailsBox:hover {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2); /* ✅ تأثير ظل أقوى شوي عند الهوفر */
 }
 
 .colorSwatch {
@@ -52,14 +70,17 @@
 .backButton {
   margin-top: 2rem;
   padding: 0.6rem 1.5rem;
-  background-color: #222;
+  background-color: rgba(34, 34, 34, 0.8); /* لون شفاف شوي */
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: background-color 0.3s ease;
 }
+
 .backButton:hover {
-  background-color: #444;
+  background-color: rgba(68, 68, 68, 0.9);
 }
 @media (max-width: 600px) {
   .detailsBox {
