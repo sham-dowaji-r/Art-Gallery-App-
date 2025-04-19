@@ -9,20 +9,12 @@ import { useRouter } from "next/router"; // ✅ استيراد router
 import { useEffect } from "react";
 import ColorPalette from "../ColorPalette";
 import cardStyles from "@/components/ArtPiecesCard/ArtPiecesCard.module.css";
+import useBackgroundGradient from "@/hooks/useBackgroundGradient";
 
 const ArtPieceDetails = ({ piece }) => {
   const router = useRouter();
 
-  const backgroundGradient = piece.colors
-    ? `linear-gradient(to top, ${piece.colors.join(", ")})`
-    : "#fff"; // fallback إذا ما في ألوان
-  useEffect(() => {
-    document.body.style.background = backgroundGradient;
-
-    return () => {
-      document.body.style.background = "";
-    };
-  }, [backgroundGradient]);
+  useBackgroundGradient(piece.colors);
   // ✅ استخدام Zustand
   const favorites = useStore((state) => state.favorites);
   const toggleFavorite = useStore((state) => state.toggleFavorite);
@@ -46,6 +38,7 @@ const ArtPieceDetails = ({ piece }) => {
           width={400}
           height={300}
           priority
+          sizes="(max-width: 600px) 100vw, 400px"
           style={{
             width: "100%",
             height: "auto",

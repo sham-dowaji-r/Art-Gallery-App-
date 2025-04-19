@@ -6,8 +6,9 @@ import styles from "./ArtPiecesList.module.css";
 const ArtPiecesList = () => {
   const { data, error, isLoading } = useArtPieces();
 
-  if (isLoading) return <p>Loading The Pieces...</p>;
-  if (error) return <p>Failed To Load The Data</p>;
+  if (isLoading)
+    return <p className={styles.container}>Loading The Pieces...</p>;
+  if (error) return <p className={styles.container}>Failed To Load The Data</p>;
 
   return (
     <div className={styles.container}>

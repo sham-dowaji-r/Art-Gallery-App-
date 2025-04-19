@@ -12,11 +12,7 @@ const ArtPiecesCard = ({ imageUrl, title, artist, slug }) => {
   const isFavorite = favorites.includes(slug);
 
   return (
-    <div
-      className={`${styles.card} ${
-        isFavorite ? styles.cardFavorite : styles.cardDefault
-      }`}
-    >
+    <div className={`${styles.card} ${isFavorite ? styles.cardFavorite : ""}`}>
       <div className={styles.imageWrapper}>
         <Link href={`/art/${slug}`}>
           <Image

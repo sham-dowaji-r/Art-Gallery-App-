@@ -7,10 +7,13 @@ import Image from "next/image";
 import useStore from "../store"; // ✅ استيراد Zustand
 import styles from "./SpotLight.module.css";
 import cardStyles from "@/components/ArtPiecesCard/ArtPiecesCard.module.css";
+import useBackgroundGradient from "@/hooks/useBackgroundGradient";
 
 const SpotLight = () => {
   const { data, error, isLoading } = useArtPieces();
   const [randomPiece, setRandomPiece] = useState(null);
+
+  useBackgroundGradient(randomPiece?.colors);
 
   // ✅ من Zustand
   const favorites = useStore((state) => state.favorites);

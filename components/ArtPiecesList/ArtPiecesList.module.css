@@ -10,7 +10,7 @@
   list-style: none;
   padding: 0;
   margin-top: 2rem;
-
+  max-width: 1200px;
   display: flex;
   flex-wrap: wrap; /* ✅ يخلي البطاقات تلف عالمسطرة */
   justify-content: center; /* ✅ البطاقات بالنص */

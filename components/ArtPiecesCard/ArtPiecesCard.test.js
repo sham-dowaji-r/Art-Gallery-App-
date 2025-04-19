@@ -55,11 +55,4 @@ describe("ArtPiecesCard (with Zustand)", () => {
     const { container } = render(<ArtPiecesCard {...mockProps} />);
     expect(container.firstChild).toHaveClass("cardFavorite");
   });
-
-  test("applies default border if not favorite", () => {
-    useStore.setState({ favorites: [] });
-
-    const { container } = render(<ArtPiecesCard {...mockProps} />);
-    expect(container.firstChild).toHaveClass("cardDefault");
-  });
 });
