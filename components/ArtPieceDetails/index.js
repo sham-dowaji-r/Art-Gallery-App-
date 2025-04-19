@@ -46,6 +46,11 @@ const ArtPieceDetails = ({ piece }) => {
           width={400}
           height={300}
           priority
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "contain", // 👈 هي أهم شي هون
+          }}
         />
         <FavoriteButton
           isFavorite={isFavorite}
